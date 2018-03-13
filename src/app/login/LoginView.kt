@@ -1,15 +1,24 @@
 package app.login
 
-import kotlinx.html.A
-import kotlinx.html.DIV
+import app.base.Props
+import app.base.View
+import app.inputValue
+import app.widgets.accentButton
+import app.widgets.cardPanel
+import app.widgets.lightButton
 import kotlinx.html.InputType
-import kotlinx.html.id
+import kotlinx.html.js.onChangeFunction
+import kotlinx.html.js.onClickFunction
 import react.RBuilder
-import react.RComponent
-import react.RProps
 import react.dom.*
+import react.setState
 
-class LoginView : RComponent<RProps, LoginState>() {
+class LoginView : View<LoginPresenter, LoginState>() {
+
+    override fun LoginState.init(props: Props<LoginPresenter>) {
+        state.login = ""
+        state.password = ""
+    }
 
     override fun RBuilder.render() {
         div("container") {
@@ -17,13 +26,20 @@ class LoginView : RComponent<RProps, LoginState>() {
                 attrs.jsStyle { height = 50 }
             }
             div("row") {
-                div("col s4 offset-s4") {
+                div("col s6 offset-s3") {
                     cardPanel {
                         h3 { +"Log In" }
                         //p("flow-text") { +"Log In" }
                         div("section") {
                             div("input-field") {
-                                input(classes = "validate", type = InputType.email) { }
+                                input(classes = "validate", type = InputType.email) {
+                                    attrs {
+                                        onChangeFunction = {
+                                            val value = it.inputValue
+                                            setState { login = value }
+                                        }
+                                    }
+                                }
                                 label {
                                     attrs["data-error"] = "Wrong Email"
                                     +"Email"
@@ -35,9 +51,11 @@ class LoginView : RComponent<RProps, LoginState>() {
                             div("input-field") {
                                 // password
                                 input(classes = "validate", type = InputType.password) {
-                                    key = "password"
                                     attrs {
-                                        id = "password"
+                                        onChangeFunction = {
+                                            val value = it.inputValue
+                                            setState { password = value }
+                                        }
                                     }
                                 }
                                 label {
@@ -49,10 +67,20 @@ class LoginView : RComponent<RProps, LoginState>() {
                         div("section") {
                             lightButton {
                                 +"Sign In"
+                                attrs {
+                                    onClickFunction = {
+                                        props.presenter.onLogin(state.login, state.password)
+                                    }
+                                }
                             }
                             //div {}
                             accentButton {
                                 +"Sign Up"
+                                attrs {
+                                    onClickFunction = {
+                                        presenter.onRegister(state.login, state.password)
+                                    }
+                                }
                             }
                         }
 
@@ -63,16 +91,8 @@ class LoginView : RComponent<RProps, LoginState>() {
     }
 }
 
-fun RBuilder.cardPanel(child: RDOMBuilder<DIV>.() -> Unit) {
-    div("card-panel", child)
+fun RBuilder.loginView(presenter: LoginPresenter) = child(LoginView::class) {
+    attrs {
+        this.presenter = presenter
+    }
 }
-
-fun RBuilder.accentButton(child: RDOMBuilder<A>.() -> Unit) {
-    a(classes = "waves-effect waves-light btn horizontal-button", block = child)
-}
-
-fun RBuilder.lightButton(child: RDOMBuilder<A>.() -> Unit) {
-    a(classes = "waves-effect waves-dark btn grey lighten-2 black-text horizontal-button", block = child)
-}
-
-fun RBuilder.loginView() = child(LoginView::class) {}

@@ -1,33 +1,60 @@
 package app
 
+import app.login.LoginPresenter
 import app.login.loginView
+import app.main.mainView
 import kotlinext.js.invoke
-import material.material
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 
 interface AppState : RState {
-}
-
-interface AppProps : RProps {
     var loggedIn: Boolean
 }
 
-class App : RComponent<AppProps, AppState>() {
+
+class App : RComponent<RProps, AppState>() {
+
+    override fun AppState.init() {
+        loggedIn = false
+    }
+
     override fun RBuilder.render() {
         kotlinext.js.require("materialize-css/dist/js/materialize.min.js")
         kotlinext.js.require("materialize-css/dist/css/materialize.min.css")
 
-        if (!props.loggedIn)
-            loginView()
-        else {
-            material()
+        val loginPresenter = LoginPresenter(onLoggedIn = {
+            console.log("logged in")
+            setState {
+                loggedIn = true
+            }
+        })
+
+        if (!state.loggedIn) {
+            loginView(loginPresenter)
+        } else {
+            mainView(state.loggedIn)
         }
+
+        /* hashRouter {
+             switch {
+                 //div {
+                 route("/", exact = true) {
+                     console.log("route main. loggedIn=${state.loggedIn}")
+                     mainView(state.loggedIn)
+                 }
+                 route("/login", exact = true) {
+                     console.log("route login. loggedIn=${state.loggedIn}")
+                     loginView(loginPresenter)
+                 }
+
+                *//* if (!state.loggedIn) {
+                    redirect("/login")
+                } else {
+                    console.log("to root")
+                    redirect("/", from = "/login")
+                }*//*
+            }
+        }*/
     }
 }
 
-fun RBuilder.app(loggedIn: Boolean) = child(App::class) {
-    attrs.loggedIn = loggedIn
-}
+fun RBuilder.app() = child(App::class) {}
