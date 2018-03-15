@@ -4,10 +4,9 @@
   "private": true,
   "dependencies": {
     "kotlinx-coroutines-core": "^0.22.5",
-    "materialize-css": "^0.100.2",
+    "material-ui": "^1.0.0-beta.37",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-materialize": "^2.0.7",
     "react-router-dom": "4.2.2"
   },
   "devDependencies": {

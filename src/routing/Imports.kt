@@ -2,8 +2,11 @@
 
 package routing
 
-import react.*
+import react.RClass
+import react.RProps
+import react.RState
 import react.React.Component
+import react.ReactElement
 
 @JsName("HashRouter")
 external class HashRouterComponent : Component<RProps, RState> {
@@ -26,7 +29,7 @@ external class LinkComponent : Component<LinkProps, RState> {
 }
 
 @JsName("Redirect")
-external class Redirect : React.Component<RedirectProps, RState> {
+external class Redirect : Component<RedirectProps, RState> {
     override fun render(): ReactElement
 }
 

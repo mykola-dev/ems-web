@@ -3,7 +3,6 @@ package app
 import app.login.LoginPresenter
 import app.login.loginView
 import app.main.mainView
-import kotlinext.js.invoke
 import react.*
 
 interface AppState : RState {
@@ -18,8 +17,6 @@ class App : RComponent<RProps, AppState>() {
     }
 
     override fun RBuilder.render() {
-        kotlinext.js.require("materialize-css/dist/js/materialize.min.js")
-        kotlinext.js.require("materialize-css/dist/css/materialize.min.css")
 
         val loginPresenter = LoginPresenter(onLoggedIn = {
             console.log("logged in")
