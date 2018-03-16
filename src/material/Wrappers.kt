@@ -93,6 +93,7 @@ fun RBuilder.tab(
 }
 
 fun RBuilder.typography(
+    text: String? = null,
     classes: String? = null,
     variant: TextVariant = TextVariant.body1,
     align: Align = Align.inherit,
@@ -100,7 +101,7 @@ fun RBuilder.typography(
     gutterBottom: Boolean = false,
     noWrap: Boolean = false,
     paragraph: Boolean = false,
-    handler: RHandler<dynamic>
+    handler: RHandler<dynamic>? = null
 ) = child(Typography::class) {
     attrs {
         this.className = classes
@@ -110,8 +111,11 @@ fun RBuilder.typography(
         this.gutterBottom = gutterBottom
         this.noWrap = noWrap
         this.paragraph = paragraph
+        if (text != null)
+            this.children = text
+        else if (handler != null)
+            handler()
     }
-    handler()
 }
 
 fun RBuilder.button(
@@ -141,4 +145,32 @@ fun RBuilder.button(
 
     }
     handler()
+}
+
+fun RBuilder.paper(
+    classes: String? = null,
+    component: Any? = "div",    //union: string | func
+    elevation: Int = 2,
+    square: Boolean = false,
+    handler: RHandler<dynamic>
+) = child(Paper::class) {
+    attrs {
+        this.className = classes
+        this.component = component
+        this.elevation = elevation
+        this.square = square
+    }
+    handler()
+}
+
+fun RBuilder.icon(
+    icon: String,   // https://material.io/icons/
+    classes: String? = null,
+    color: Color = Color.inherit   // 'inherit', 'secondary', 'action', 'disabled', 'error', 'primary'
+) = child(Icon::class) {
+    attrs {
+        this.children = icon
+        this.className = classes
+        this.color = color.name
+    }
 }

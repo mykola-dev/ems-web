@@ -15,10 +15,8 @@ class MainView : View<MainPresenter, MainState>() {
     override fun RBuilder.render() {
         div("root") {
             appBar(position = Position.static) {
-                toolBar {
-                    typography(variant = TextVariant.title, color = Color.inherit) {
-                        +"Hello World"
-                    }
+                div("toolbar") {
+                    typography("Hello World",variant = TextVariant.title, color = Color.inherit)
 
                     val onTabChange: OnTabChange = { event, value ->
                         console.log("$event: changed to $value")
@@ -28,6 +26,7 @@ class MainView : View<MainPresenter, MainState>() {
                     }
 
                     tabs("flex", value = state.tabIndex, centered = true, onChange = onTabChange) {
+
                         tab("History")
                         tab("Charts")
                         tab("Settings")
@@ -40,13 +39,20 @@ class MainView : View<MainPresenter, MainState>() {
             }
 
             when (state.tabIndex) {
-                0 -> +"1"
+                0 -> {
+                    paper {
+                        typography {
+                            +"TO DO"
+                        }
+                        icon("stars")
+                    }
+                }
                 1 -> +"2"
                 2 -> +"3"
             }
         }
 
-        console.log("logged in? ${presenter.loggedIn}")
+        console.log("logged in? ${presenter.loggedIn}");
     }
 
 }
@@ -54,5 +60,7 @@ class MainView : View<MainPresenter, MainState>() {
 fun RBuilder.mainView(loggedIn: Boolean) = child(MainView::class) {
     attrs {
         this.presenter = MainPresenter(loggedIn)
+
     }
 }
+

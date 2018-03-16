@@ -30,3 +30,12 @@ external class Tab : React.Component<dynamic, RState> {
     override fun render(): ReactElement
 }
 
+external class Paper : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class Icon : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+

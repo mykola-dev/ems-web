@@ -6,9 +6,9 @@ body {
 /*margin-right: 8pt;*/
 /*}*/
 
-root {
+/*root {
     flexGrow: 1;
-}
+}*/
 
 .flex {
     flex: 1;
@@ -21,6 +21,15 @@ root {
 
 .test {
     color: blue;
-    /*padding: 100px;*/
+    padding: 100px;
     background-color: red;
+}
+
+.toolbar {
+    display: flex;
+    flex-direction: row;
+    vertical-align: center;
+    margin-left: 16pt;
+    margin-right: 16pt;
+    align-items: center;
 }
