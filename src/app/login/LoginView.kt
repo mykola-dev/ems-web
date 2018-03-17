@@ -81,11 +81,6 @@ class LoginView : View<LoginPresenter, LoginState>() {
                             }
                         }
 
-                        /* div {
-                             attrs.jsStyle { height = 50 }
-                         }*/
-
-
                     }
                 }
             }

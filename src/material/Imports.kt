@@ -46,4 +46,24 @@ external class Grid : React.Component<dynamic, RState> {
     override fun render(): ReactElement
 }
 
+external class List : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class ListItem : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class ListItemIcon : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class Divider : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class ListItemText : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
 

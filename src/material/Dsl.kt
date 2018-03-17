@@ -6,6 +6,7 @@ import kotlinx.html.InputType
 import org.w3c.dom.events.Event
 import react.RBuilder
 import react.RHandler
+import react.ReactElement
 
 
 typealias OnTabChange = (event: Object, value: Int) -> Unit
@@ -282,6 +283,7 @@ private inline fun RBuilder.grid(
 }
 
 /**
+ * Convenient alias for item grid
  * [xs], [sm], [md], [lg], [xl] - enum: true, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
  */
 fun RBuilder.item(
@@ -307,6 +309,7 @@ fun RBuilder.item(
 )
 
 /**
+ * Convenient alias for container grid
  * [spacing] - enum: 0, 8, 16, 24, 40
  */
 fun RBuilder.container(
@@ -331,3 +334,84 @@ fun RBuilder.container(
     wrap = wrap,
     handler = handler
 )
+
+fun RBuilder.list(
+    classes: String? = null,
+    dense: Boolean = false,
+    disablePadding: Boolean = false,
+    subheader: ReactElement? = null,
+    handler: RHandler<dynamic>
+) = child(List::class) {
+    attrs {
+        this.className = classes
+        this.dense = dense
+        this.disablePadding = disablePadding
+        this.subheader = subheader
+    }
+    handler()
+}
+
+fun RBuilder.listItem(
+    classes: String? = null,
+    button: Boolean = false,
+    dense: Boolean = false,
+    disableGutters: Boolean = false,
+    divider: Boolean = false,
+    onClick: OnClick? = null,
+    handler: RHandler<dynamic>
+) = child(ListItem::class) {
+    attrs {
+        this.className = classes
+        this.button = button
+        this.dense = dense
+        this.disableGutters = disableGutters
+        this.divider = divider
+        this.onClick = onClick
+    }
+    handler()
+}
+
+fun RBuilder.liIcon(
+    iconName: String? = null,
+    children: ReactElement? = null,
+    classes: String? = null
+) = child(ListItemIcon::class) {
+    attrs {
+        this.className = classes
+        if (iconName != null) {
+            this.children = icon(iconName)
+        } else {
+            this.children = children
+        }
+    }
+}
+
+fun RBuilder.liText(
+    primary: String? = null,
+    secondary: String? = null,
+    inset: Boolean = false,
+    disableTypography: Boolean = false,
+    classes: String? = null
+) = child(ListItemText::class) {
+    attrs {
+        this.className = classes
+        this.primary = primary
+        this.secondary = secondary
+        this.inset = inset
+        this.disableTypography = disableTypography
+    }
+}
+
+fun RBuilder.divider(
+    absolute: Boolean = false,
+    classes: String? = null,
+    inset: Boolean = false,
+    light: Boolean = false
+) = child(Divider::class) {
+    attrs {
+        this.className = classes
+        this.absolute = absolute
+        this.inset = inset
+        this.light = light
+    }
+}

@@ -46,7 +46,32 @@ class MainView : View<MainPresenter, MainState>() {
                     icon("stars")
                     textField("Login", defaultValue = "hi")
                 }
-                1 -> +"2"
+                1 -> {
+                    list {
+                        listItem(button = true) {
+                            liIcon("inbox")
+                            liText("Inbox")
+                        }
+                        listItem(button = true) {
+                            liIcon("drafts")
+                            liText("Drafts")
+
+                        }
+
+                        divider()
+
+                        listItem(button = true) {
+                            liText("Trash")
+                        }
+                        listItem(button = true, onClick = {
+                            console.log("click")
+                        }) {
+                            liText("Spam")
+                        }
+
+
+                    }
+                }
                 2 -> +"3"
             }
         }
