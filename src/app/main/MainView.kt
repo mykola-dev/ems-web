@@ -16,7 +16,7 @@ class MainView : View<MainPresenter, MainState>() {
         div("root") {
             appBar(position = Position.static) {
                 div("toolbar") {
-                    typography("Hello World",variant = TextVariant.title, color = Color.inherit)
+                    typography("Hello World", variant = TextVariant.title, color = Color.inherit)
 
                     val onTabChange: OnTabChange = { event, value ->
                         console.log("$event: changed to $value")
@@ -40,12 +40,11 @@ class MainView : View<MainPresenter, MainState>() {
 
             when (state.tabIndex) {
                 0 -> {
-                    paper {
-                        typography {
-                            +"TO DO"
-                        }
-                        icon("stars")
+                    typography {
+                        +"TO DO"
                     }
+                    icon("stars")
+                    textField("Login", defaultValue = "hi")
                 }
                 1 -> +"2"
                 2 -> +"3"

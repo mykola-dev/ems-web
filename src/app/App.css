@@ -2,9 +2,9 @@ body {
     margin: 0;
 }
 
-/*.horizontal-button {*/
-/*margin-right: 8pt;*/
-/*}*/
+.horizontal-button {
+    margin-right: 8pt;
+}
 
 /*root {
     flexGrow: 1;
@@ -32,4 +32,8 @@ body {
     margin-left: 16pt;
     margin-right: 16pt;
     align-items: center;
+}
+
+.card {
+    padding: 16pt;
 }

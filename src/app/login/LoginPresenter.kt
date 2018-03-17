@@ -1,10 +1,20 @@
 package app.login
 
 import app.base.Presenter
+import react.setState
 
 class LoginPresenter(val onLoggedIn: () -> Unit) : Presenter() {
 
-    fun onLogin(login: String, password: String) {
+    fun onLogin(view: LoginView, login: String, password: String) {
+        if (login.isEmpty()) {
+            view.setState { loginError = true }
+            return
+        }
+        if (password.isEmpty()) {
+            view.setState { passwordError = true }
+            return
+        }
+
         // todo
         onLoggedIn()
     }
@@ -13,4 +23,5 @@ class LoginPresenter(val onLoggedIn: () -> Unit) : Presenter() {
         // todo
         onLoggedIn()
     }
+
 }

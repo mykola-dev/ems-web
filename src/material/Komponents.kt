@@ -38,4 +38,12 @@ external class Icon : React.Component<dynamic, RState> {
     override fun render(): ReactElement
 }
 
+external class TextField : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class Grid : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
 
