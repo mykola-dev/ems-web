@@ -4,14 +4,19 @@ import kotlinext.js.JsFunction0
 import kotlinext.js.Object
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
+import org.w3c.dom.events.EventTarget
 import react.RBuilder
 import react.RHandler
+import react.React
 import react.ReactElement
+import kotlin.reflect.KClass
 
 
-typealias OnTabChange = (event: Object, value: Int) -> Unit
-typealias OnChange = (event: Event) -> Unit
-typealias OnClick = () -> Unit
+typealias OnTabChange = (event: Event, value: Int) -> Unit
+typealias OnChecked = (event: Event, checked: Boolean) -> Unit
+typealias EventCallback = (event: Event) -> Unit
+typealias OnChange = EventCallback
+typealias OnClick = EventCallback
 
 fun RBuilder.appBar(
     classes: String? = null,
@@ -371,7 +376,23 @@ fun RBuilder.listItem(
     handler()
 }
 
-fun RBuilder.liIcon(
+fun RBuilder.listSubheader(
+    classes: String? = null,
+    color: Color = Color.default,//'default' | 'primary' | 'inherit'
+    disableSticky: Boolean = false,
+    inset: Boolean = false,
+    handler: RHandler<dynamic>
+) = child(ListSubheader::class) {
+    attrs {
+        this.className = classes
+        this.color = color
+        this.disableSticky = disableSticky
+        this.inset = inset
+    }
+    handler()
+}
+
+fun RBuilder.listItemIcon(
     iconName: String? = null,
     children: ReactElement? = null,
     classes: String? = null
@@ -386,7 +407,28 @@ fun RBuilder.liIcon(
     }
 }
 
-fun RBuilder.liText(
+fun RBuilder.iconButton(
+    iconName: String? = null,
+    children: ReactElement? = null,
+    classes: String? = null,
+    disabled: Boolean = false,
+    disableRipple: Boolean = false,
+    color: Color = Color.default  // 'default' |    'inherit' |'primary' |'secondary'
+) = child(IconButton::class) {
+    attrs {
+        this.className = classes
+        this.color = color
+        this.disabled = disabled
+        this.disableRipple = disableRipple
+        if (iconName != null) {
+            this.children = icon(iconName)
+        } else {
+            this.children = children
+        }
+    }
+}
+
+fun RBuilder.listItemText(
     primary: String? = null,
     secondary: String? = null,
     inset: Boolean = false,
@@ -415,3 +457,212 @@ fun RBuilder.divider(
         this.light = light
     }
 }
+
+fun RBuilder.checkbox(
+    checked: Boolean = false,
+    disabled: Boolean = false,
+    icon: Icon? = null,
+    color: Color = Color.secondary, // primary | secondary
+    checkedIcon: Icon? = null,
+    indeterminateIcon: Icon? = null,
+    disableRipple: Boolean = false,
+    indeterminate: Boolean = false,
+    id: String? = null,
+    value: String = "",
+    inputProps: Object? = null,
+    inputRef: JsFunction0<*>? = null,
+    type: String? = null,
+    classes: String? = null,
+    onChange: OnChecked? = null
+) = child(Checkbox::class) {
+    attrs {
+        this.className = classes
+        this.color = color.toString()
+        this.value = value
+        if (icon != null) this.icon = icon
+        if (checkedIcon != null) this.checkedIcon = checkedIcon
+        if (indeterminateIcon != null) this.indeterminateIcon = indeterminateIcon
+        this.checked = checked
+        this.disabled = disabled
+        this.disableRipple = disableRipple
+        this.indeterminate = indeterminate
+        this.id = id
+        this.inputProps = inputProps
+        this.inputRef = inputRef
+        if (type != null) this.type = type
+        this.onChange = onChange
+    }
+}
+
+fun RBuilder.switch(
+    checked: Boolean = false,
+    icon: Icon? = null,
+    checkedIcon: Icon? = null,
+    disabled: Boolean = false,
+    disableRipple: Boolean = false,
+    id: String? = null,
+    inputProps: Object? = null,
+    inputRef: JsFunction0<*>? = null,
+    type: String? = null,
+    value: String = "",
+    color: Color = Color.secondary,   // 'primary' | 'inherit'
+    classes: String? = null,
+    onChange: OnChecked? = null
+) = child(Switch::class) {
+    attrs {
+        if (icon != null) this.icon = icon
+        if (checkedIcon != null) this.checkedIcon = checkedIcon
+        this.disabled = disabled
+        this.disableRipple = disableRipple
+        this.checked = checked
+        this.className = classes
+        this.color = color.toString()
+        this.id = id
+        this.inputProps = inputProps
+        this.inputRef = inputRef
+        if (type != null) this.type = type
+        this.onChange = onChange
+        this.value = value
+    }
+}
+
+fun <T : React.Component<dynamic, *>> RBuilder.formControlLabel(
+    label: String,
+    controlClass: KClass<T>,
+    checked: Boolean = false,
+    disabled: Boolean = false,
+    name: String? = null,
+    inputRef: JsFunction0<*>? = null,
+    value: String? = null,
+    classes: String? = null,
+    onChange: OnChecked? = null
+) = child(FormControlLabel::class) {
+    val control = node(controlClass, Object.asDynamic())
+    attrs {
+        this.label = label
+        this.checked = checked
+        this.disabled = disabled
+        this.name = name
+        this.inputRef = inputRef
+        if (value != null) this.value = value
+        this.classes = classes
+        this.onChange = onChange
+        this.control = control
+    }
+}
+
+fun RBuilder.menu(
+    open: Boolean = false,
+    anchorEl: EventTarget? = null,
+    classes: String? = null,
+    onClose: EventCallback? = null,
+    /*onEnter: EventCallback? = null,
+    onEntered: EventCallback? = null,
+    onEntering: EventCallback? = null,
+    onExit: EventCallback? = null,
+    onExited: EventCallback? = null,
+    onExiting: EventCallback? = null,*/
+    MenuListProps: Object? = null,
+    PopoverClasses: Object? = null,
+    transitionDuration: Long? = null,
+    handler: RHandler<dynamic>
+) = child(Menu::class) {
+    attrs {
+        this.className = classes
+        this.open = open
+        this.anchorEl = anchorEl
+        this.MenuListProps = MenuListProps
+        this.onClose = onClose
+        //this.onEnter = onEnter
+        //this.onEntered = onEntered
+        //this.onEntering = onEntering
+        //this.onExit = onExit
+        //this.onExited = onExited
+        //this.onExiting = onExiting
+        this.PopoverClasses = PopoverClasses
+        if (transitionDuration != null) this.transitionDuration = transitionDuration
+    }
+    handler()
+}
+
+fun RBuilder.menuItem(
+    title: String? = null,
+    selected: Boolean = false,
+    classes: String? = null,
+    onClick: OnClick? = null,
+    handler: RHandler<dynamic>? = null
+) = child(MenuItem::class) {
+    attrs {
+        this.className = classes
+        this.selected = selected
+        this.onClick = onClick
+        if (title != null) {
+            this.children = title
+        } else if (handler != null) {
+            handler()
+        }
+    }
+}
+
+fun RBuilder.dialog(
+    open: Boolean = false,
+    disableBackdropClick: Boolean = false,
+    disableEscapeKeyDown: Boolean = false,
+    fullScreen: Boolean = false,
+    fullWidth: Boolean = false,
+    maxWidth: DialogMaxWidth = DialogMaxWidth.sm,
+    onBackdropClick: OnClick? = null,
+    onClose: EventCallback? = null,
+    PaperProps: Object? = null,
+    classes: String? = null,
+    handler: RHandler<dynamic>
+) = child(Dialog::class) {
+    attrs {
+        this.className = classes
+        this.open = open
+        this.disableBackdropClick = disableBackdropClick
+        this.disableEscapeKeyDown = disableEscapeKeyDown
+        this.fullScreen = fullScreen
+        this.fullWidth = fullWidth
+        this.maxWidth = maxWidth.toString()
+        this.onBackdropClick = onBackdropClick
+        this.onClose = onClose
+        this.PaperProps = PaperProps
+    }
+    handler()
+}
+
+fun RBuilder.dialogTitle(
+    title: String,
+    disableTypography: Boolean = false,
+    classes: String? = null
+) = child(DialogTitle::class) {
+    attrs {
+        this.className = classes
+        this.disableTypography = disableTypography
+        this.children = title
+    }
+}
+
+fun RBuilder.dialogContent(
+    classes: String? = null,
+    handler: RHandler<dynamic>
+) = child(DialogContent::class) {
+    attrs {
+        this.className = classes
+    }
+    handler()
+}
+
+fun RBuilder.dialogActions(
+    classes: String? = null,
+    disableActionSpacing: Boolean = false,
+    handler: RHandler<dynamic>
+) = child(DialogActions::class) {
+    attrs {
+        this.className = classes
+        this.disableActionSpacing = disableActionSpacing
+    }
+    handler()
+}
+

@@ -46,8 +46,16 @@ enum class ScrollButtons { auto, on, off }
 
 enum class TextMargin { none, dense, normal }
 
+enum class Control { CHECKBOX, SWITCH, RADIO }
+
 enum class Wrap(private val alias: String? = null) {
     nowrap, wrap, wrapReverse("wrap-reverse");
+
+    override fun toString(): String = alias ?: super.toString()
+}
+
+enum class DialogMaxWidth(private val alias: String? = null) {
+    xs, sm, md, none("false");
 
     override fun toString(): String = alias ?: super.toString()
 }

@@ -66,4 +66,52 @@ external class ListItemText : React.Component<dynamic, RState> {
     override fun render(): ReactElement
 }
 
+external class IconButton : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class ListSubheader : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class Checkbox : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class Switch : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class FormControlLabel : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class Menu : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class MenuItem : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class Dialog : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class DialogTitle : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class DialogContent : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class DialogContentText : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class DialogActions : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
 

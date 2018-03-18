@@ -47,32 +47,88 @@ class MainView : View<MainPresenter, MainState>() {
                     textField("Login", defaultValue = "hi")
                 }
                 1 -> {
-                    list {
-                        listItem(button = true) {
-                            liIcon("inbox")
-                            liText("Inbox")
-                        }
-                        listItem(button = true) {
-                            liIcon("drafts")
-                            liText("Drafts")
+                    container {
+                        item(xs = 4) {
+                            list {
 
-                        }
+                                listItem(button = true) {
+                                    listItemIcon("inbox")
+                                    listItemText("Inbox")
+                                }
+                                listItem(button = true) {
+                                    listItemIcon("drafts")
+                                    listItemText("Drafts")
 
-                        divider()
+                                }
 
-                        listItem(button = true) {
-                            liText("Trash")
-                        }
-                        listItem(button = true, onClick = {
-                            console.log("click")
-                        }) {
-                            liText("Spam")
-                        }
+                                divider()
 
+                                listItem(button = true, onClick = {
+                                    setState { showDialog = true }
+                                }) {
+                                    listItemText("Trash", inset = true)
+                                }
+                                val onClick: OnClick = { event ->
+                                    console.log("click")
+                                    val anchor = event.currentTarget
+                                    setState {
+                                        menuAnchor = anchor
+                                    }
+                                }
+                                listItem(button = true, onClick = onClick) {
+                                    listItemText("Spam", inset = true)
+                                }
+
+
+                            }
+                        }
+                    }
+                    val onClose: EventCallback = {
+                        setState {
+                            menuAnchor = null
+                        }
+                    }
+
+                    menu(open = state.menuAnchor != null, onClose = onClose, anchorEl = state.menuAnchor) {
+                        menuItem { +"item 1" }
+                        menuItem { +"item 2" }
+                        menuItem("item 3")
+                    }
+
+                    dialog(state.showDialog, onClose = { setState { showDialog = false } }) {
+                        dialogTitle("Attention")
+                        dialogContent {
+                            +"This is Dialog!"
+                        }
+                        dialogActions {
+                            button("OK",color = Color.secondary)
+                            button("CANCEL")
+                        }
 
                     }
                 }
-                2 -> +"3"
+                2 -> {
+                    container(direction = FlexDirection.column, alignContent = ContentAlign.center) {
+                        checkbox(state.checked1) { _, checked ->
+                            console.log("clicked $checked")
+                            setState { checked1 = checked }
+                        }
+
+                        switch(state.checked1) { _, checked ->
+                            console.log("clicked $checked")
+                            setState { checked1 = checked }
+                        }
+
+                        formControlLabel("This is a check box", Checkbox::class, state.checked1) { _, checked ->
+                            console.log("clicked $checked")
+                            setState { checked1 = checked }
+                        }
+                        formControlLabel("This is a switch", Switch::class, state.checked1) { _, checked ->
+                            console.log("clicked $checked")
+                            setState { checked1 = checked }
+                        }
+                    }
+                }
             }
         }
 
