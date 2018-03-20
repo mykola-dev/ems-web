@@ -73,7 +73,7 @@ class LoginView : View<LoginPresenter, LoginState>() {
                                     }
 
                                     item {
-                                        button("Sign Up", variant = ButtonVariant.raised, color = Color.primary, onClick = {
+                                        button("Sign Up", variant = ButtonVariant.raised, color = Color.secondary, onClick = {
                                             presenter.onRegister(state.login, state.password)
                                         })
                                     }

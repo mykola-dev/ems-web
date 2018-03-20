@@ -98,10 +98,10 @@ class MainView : View<MainPresenter, MainState>() {
                     dialog(state.showDialog, onClose = { setState { showDialog = false } }) {
                         dialogTitle("Attention")
                         dialogContent {
-                            +"This is Dialog!"
+                            dialogContentText("This is Dialog!")
                         }
                         dialogActions {
-                            button("OK",color = Color.secondary)
+                            button("OK", color = Color.secondary)
                             button("CANCEL")
                         }
 

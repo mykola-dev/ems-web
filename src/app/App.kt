@@ -3,6 +3,10 @@ package app
 import app.login.LoginPresenter
 import app.login.loginView
 import app.main.mainView
+import material.Palette
+import material.buildTheme
+import material.createMuiTheme
+import material.themeWrapper
 import react.*
 
 interface AppState : RState {
@@ -17,6 +21,19 @@ class App : RComponent<RProps, AppState>() {
     }
 
     override fun RBuilder.render() {
+        val theme = buildTheme(
+            primary = Palette(
+                main = "#7cb342",
+                dark = "#558b2f",
+                contrastText = "#fff"
+            ),
+            secondary = Palette(
+                main = "#E64A19",
+                contrastText = "#fff"
+            )
+        )
+
+        val muiTheme = createMuiTheme(theme)
 
         val loginPresenter = LoginPresenter(onLoggedIn = {
             console.log("logged in")
@@ -25,10 +42,13 @@ class App : RComponent<RProps, AppState>() {
             }
         })
 
-        if (!state.loggedIn) {
-            loginView(loginPresenter)
-        } else {
-            mainView(state.loggedIn)
+        themeWrapper(muiTheme)
+        {
+            if (!state.loggedIn) {
+                loginView(loginPresenter)
+            } else {
+                mainView(state.loggedIn)
+            }
         }
 
         /* hashRouter {

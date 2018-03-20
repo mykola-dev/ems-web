@@ -654,6 +654,16 @@ fun RBuilder.dialogContent(
     handler()
 }
 
+fun RBuilder.dialogContentText(
+    text: String,
+    classes: String? = null
+) = child(DialogContentText::class) {
+    attrs {
+        this.children = text
+        this.className = classes
+    }
+}
+
 fun RBuilder.dialogActions(
     classes: String? = null,
     disableActionSpacing: Boolean = false,
@@ -666,3 +676,14 @@ fun RBuilder.dialogActions(
     handler()
 }
 
+fun RBuilder.themeWrapper(
+    theme: dynamic,
+    handler: RHandler<dynamic>
+) = child(MuiThemeProvider::class) {
+    attrs {
+        this.theme = theme
+    }
+    handler()
+}
+
+fun buildTheme(primary: Palette, secondary: Palette): Theme = Theme(Theme.PaletteContainer(primary, secondary))
