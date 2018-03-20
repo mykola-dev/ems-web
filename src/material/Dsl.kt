@@ -686,4 +686,42 @@ fun RBuilder.themeWrapper(
     handler()
 }
 
+fun RBuilder.circularProgress(
+    value: Int = 0,
+    color: Color = Color.primary, //'primary' |    'secondary' |'inherit',
+    min: Int = 0,
+    max: Int = 100,
+    size: Int = 40,
+    variant: CircularProgressVariant = CircularProgressVariant.indeterminate,
+    thickness: Float = 3.6f,
+    classes: String? = null
+) = child(CircularProgress::class) {
+    attrs {
+        this.value = value
+        this.className = classes
+        this.color = color.toString()
+        this.min = min
+        this.max = max
+        this.size = size
+        this.variant = variant.toString()
+        this.thickness = thickness
+    }
+}
+
+fun RBuilder.linearProgress(
+    value: Int = 0,
+    valueBuffer: Int = 0,
+    variant: LinearProgressVariant = LinearProgressVariant.indeterminate,
+    color: Color = Color.secondary, //'primary' | 'secondary'
+    classes: String? = null
+) = child(LinearProgress::class) {
+    attrs {
+        this.value = value
+        this.valueBuffer = valueBuffer
+        this.variant = variant.toString()
+        this.color = color.toString()
+        this.className = classes
+    }
+}
+
 fun buildTheme(primary: Palette, secondary: Palette): Theme = Theme(Theme.PaletteContainer(primary, secondary))

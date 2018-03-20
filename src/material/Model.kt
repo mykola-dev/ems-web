@@ -12,6 +12,7 @@ data class Palette(
     val main: String? = null,
     val light: String? = null,
     val dark: String? = null,
-    val contrastText: String? = null
+    val contrastText: String? = null,
+    val type: String? = null    // dark
 )
 

@@ -59,3 +59,7 @@ enum class DialogMaxWidth(private val alias: String? = null) {
 
     override fun toString(): String = alias ?: super.toString()
 }
+
+enum class CircularProgressVariant { determinate, indeterminate, static }
+
+enum class LinearProgressVariant { determinate, indeterminate, buffer, query }

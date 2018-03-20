@@ -45,6 +45,9 @@ class MainView : View<MainPresenter, MainState>() {
                     }
                     icon("stars")
                     textField("Login", defaultValue = "hi")
+
+                    circularProgress()
+                    linearProgress()
                 }
                 1 -> {
                     container {

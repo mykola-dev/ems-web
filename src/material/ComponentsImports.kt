@@ -114,4 +114,12 @@ external class DialogActions : React.Component<dynamic, RState> {
     override fun render(): ReactElement
 }
 
+external class CircularProgress : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class LinearProgress : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
 
