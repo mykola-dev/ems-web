@@ -724,4 +724,24 @@ fun RBuilder.linearProgress(
     }
 }
 
+fun RBuilder.snackbar(
+    message: String,
+    actionText: String? = null,
+    open: Boolean = false,
+    onAction: EventCallback? = null,
+    onClose: EventCallback? = null
+) = child(Snackbar::class) {
+    child(SnackbarContent::class) {
+        attrs {
+            this.message = message
+            this.action = if (actionText != null) button(onClick = onAction) { +actionText } else null
+        }
+    }
+    attrs {
+        this.onClose = onClose
+        this.open = open
+    }
+}
+
+
 fun buildTheme(primary: Palette, secondary: Palette): Theme = Theme(Theme.PaletteContainer(primary, secondary))

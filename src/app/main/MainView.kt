@@ -58,9 +58,11 @@ class MainView : View<MainPresenter, MainState>() {
                                     listItemIcon("inbox")
                                     listItemText("Inbox")
                                 }
-                                listItem(button = true) {
+                                listItem(button = true, onClick = {
+                                    setState { showToast = true }
+                                }) {
                                     listItemIcon("drafts")
-                                    listItemText("Drafts")
+                                    listItemText("Toast")
 
                                 }
 
@@ -69,7 +71,7 @@ class MainView : View<MainPresenter, MainState>() {
                                 listItem(button = true, onClick = {
                                     setState { showDialog = true }
                                 }) {
-                                    listItemText("Trash", inset = true)
+                                    listItemText("Dialog", inset = true)
                                 }
                                 val onClick: OnClick = { event ->
                                     console.log("click")
@@ -79,11 +81,15 @@ class MainView : View<MainPresenter, MainState>() {
                                     }
                                 }
                                 listItem(button = true, onClick = onClick) {
-                                    listItemText("Spam", inset = true)
+                                    listItemText("Menu", inset = true)
                                 }
 
 
                             }
+                        }
+
+                        item {
+
                         }
                     }
                     val onClose: EventCallback = {
@@ -109,6 +115,14 @@ class MainView : View<MainPresenter, MainState>() {
                         }
 
                     }
+
+                    snackbar(
+                        "Hello",
+                        "UNDO",
+                        state.showToast,
+                        { console.log("on action click") },
+                        { setState { showToast = false } }
+                    )
                 }
                 2 -> {
                     container(direction = FlexDirection.column, alignContent = ContentAlign.center) {

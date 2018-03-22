@@ -122,4 +122,12 @@ external class LinearProgress : React.Component<dynamic, RState> {
     override fun render(): ReactElement
 }
 
+external class Snackbar : React.Component<SnackbarProperties, RState> {
+    override fun render(): ReactElement
+}
+
+external class SnackbarContent : React.Component<SnackbarContentProperties, RState> {
+    override fun render(): ReactElement
+}
+
 

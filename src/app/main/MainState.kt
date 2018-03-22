@@ -7,6 +7,7 @@ interface MainState : RState {
     var tabIndex: Int
     var checked1: Boolean
     var showDialog: Boolean
+    var showToast: Boolean
     var menuAnchor: EventTarget?
 
 }
