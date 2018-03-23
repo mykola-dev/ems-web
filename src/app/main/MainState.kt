@@ -9,5 +9,6 @@ interface MainState : RState {
     var showDialog: Boolean
     var showToast: Boolean
     var menuAnchor: EventTarget?
+    var age: Int
 
 }

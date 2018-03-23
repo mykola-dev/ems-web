@@ -130,4 +130,16 @@ external class SnackbarContent : React.Component<SnackbarContentProperties, RSta
     override fun render(): ReactElement
 }
 
+external class FormControl : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class InputLabel : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
+external class Select : React.Component<dynamic, RState> {
+    override fun render(): ReactElement
+}
+
 

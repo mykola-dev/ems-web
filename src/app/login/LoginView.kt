@@ -1,7 +1,7 @@
 package app.login
 
 import app.base.View
-import app.inputValue
+import app.stringValue
 import kotlinx.html.InputType
 import material.*
 import react.RBuilder
@@ -38,7 +38,7 @@ class LoginView : View<LoginPresenter, LoginState>() {
                                     fullWidth = true,
                                     helperText = if (state.loginError) "Wrong Email" else null
                                 ) {
-                                    val value = it.inputValue
+                                    val value = it.stringValue
                                     console.log("new value=$value")
                                     setState {
                                         login = value
@@ -55,7 +55,7 @@ class LoginView : View<LoginPresenter, LoginState>() {
                                     fullWidth = true,
                                     helperText = if (state.loginError) "Wrong Password" else null
                                 ) {
-                                    val value = it.inputValue
+                                    val value = it.stringValue
                                     setState {
                                         password = value
                                         passwordError = false

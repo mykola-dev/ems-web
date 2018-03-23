@@ -1,6 +1,6 @@
 package app
 
-import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
 
-val Event.inputValue: String get() = (this.target as HTMLInputElement).value
+val Event.stringValue: String get() = this.target.asDynamic().value as String
+val Event.intValue: Int get() = this.target.asDynamic().value as Int

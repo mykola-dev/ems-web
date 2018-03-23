@@ -1,6 +1,7 @@
 package app.main
 
 import app.base.View
+import app.intValue
 import material.*
 import react.RBuilder
 import react.dom.div
@@ -10,6 +11,7 @@ class MainView : View<MainPresenter, MainState>() {
 
     override fun MainState.init() {
         tabIndex = 0
+        age = 0
     }
 
     override fun RBuilder.render() {
@@ -50,7 +52,7 @@ class MainView : View<MainPresenter, MainState>() {
                     linearProgress()
                 }
                 1 -> {
-                    container {
+                    container(alignContent = ContentAlign.stretch) {
                         item(xs = 4) {
                             list {
 
@@ -88,8 +90,16 @@ class MainView : View<MainPresenter, MainState>() {
                             }
                         }
 
-                        item {
-
+                        formControl {
+                            inputLabel("Age")
+                            select(value = state.age, onChange = {
+                                setState { age = it.intValue }
+                            }) {
+                                menuItem { +"None";attrs { value = 0 } }
+                                menuItem { +"Ten"; attrs { value = 10 } }
+                                menuItem { +"Twenty"; attrs { value = 20 } }
+                                menuItem { +"Thirty"; attrs { value = 30 } }
+                            }
                         }
                     }
                     val onClose: EventCallback = {
@@ -101,7 +111,7 @@ class MainView : View<MainPresenter, MainState>() {
                     menu(open = state.menuAnchor != null, onClose = onClose, anchorEl = state.menuAnchor) {
                         menuItem { +"item 1" }
                         menuItem { +"item 2" }
-                        menuItem("item 3")
+                        menuItem { +"item 3" }
                     }
 
                     dialog(state.showDialog, onClose = { setState { showDialog = false } }) {
@@ -149,7 +159,8 @@ class MainView : View<MainPresenter, MainState>() {
             }
         }
 
-        console.log("logged in? ${presenter.loggedIn}");
+        console.log("logged in? ${presenter.loggedIn}")
+        console.log("selected age=${state.age}")
     }
 
 }

@@ -586,22 +586,18 @@ fun RBuilder.menu(
 }
 
 fun RBuilder.menuItem(
-    title: String? = null,
     selected: Boolean = false,
     classes: String? = null,
     onClick: OnClick? = null,
-    handler: RHandler<dynamic>? = null
+    handler: RHandler<dynamic>
 ) = child(MenuItem::class) {
     attrs {
         this.className = classes
         this.selected = selected
         this.onClick = onClick
-        if (title != null) {
-            this.children = title
-        } else if (handler != null) {
-            handler()
-        }
+        this.children = title
     }
+    handler()
 }
 
 fun RBuilder.dialog(
@@ -743,5 +739,85 @@ fun RBuilder.snackbar(
     }
 }
 
+fun RBuilder.formControl(
+    disabled: Boolean = false,
+    error: Boolean = false,
+    fullWidth: Boolean = false,
+    margin: TextMargin = TextMargin.none,
+    required: Boolean = false,
+    classes: String? = null,
+    handler: RHandler<dynamic>
+) = child(FormControl::class) {
+    attrs {
+        this.disabled = disabled
+        this.error = error
+        this.fullWidth = fullWidth
+        this.margin = margin.toString()
+        this.required = required
+        this.classes = classes
+    }
+    handler()
+}
+
+fun RBuilder.inputLabel(
+    text: String,
+    disableAnimation: Boolean = false,
+    disabled: Boolean = false,
+    error: Boolean? = null,
+    focused: Boolean? = null,
+    FormControlClasses: String? = null,
+    margin: String? = null,    // dense
+    required: Boolean? = null,
+    shrink: Boolean? = null,
+    classes: String? = null
+) = child(InputLabel::class) {
+    attrs {
+        this.children = text
+        this.disableAnimation = disableAnimation
+        this.disabled = disabled
+        this.classes = classes
+        if (error != null) this.error = error
+        if (focused != null) this.focused = focused
+        if (FormControlClasses != null) this.FormControlClasses = FormControlClasses
+        if (margin != null) this.margin = margin
+        if (required != null) this.required = required
+        if (shrink != null) this.shrink = shrink
+
+    }
+}
+
+fun RBuilder.select(
+    value: dynamic,
+    autoWidth: Boolean = false,
+    displayEmpty: Boolean = false,
+    MenuProps: Object? = null,
+    multiple: Boolean = false,
+    native: Boolean = false,
+    onChange: OnChange? = null,
+    onClose: EventCallback? = null,
+    onOpen: EventCallback? = null,
+    open: Boolean? = null,
+    inputProps: dynamic = null,
+    renderValue: JsFunction0<*>? = null,
+    classes: String? = null,
+    handler: RHandler<dynamic>
+) = child(Select::class) {
+    attrs {
+        this.autoWidth = autoWidth
+        this.displayEmpty = displayEmpty
+        if (MenuProps != null) this.MenuProps = MenuProps
+        this.multiple = multiple
+        this.native = native
+        if (onChange != null) this.onChange = onChange
+        if (onClose != null) this.onClose = onClose
+        if (onOpen != null) this.onOpen = onOpen
+        if (open != null) this.open = open
+        if (renderValue != null) this.renderValue = renderValue
+        this.value = value
+        this.inputProps = inputProps
+        this.classes = classes
+    }
+    handler()
+}
 
 fun buildTheme(primary: Palette, secondary: Palette): Theme = Theme(Theme.PaletteContainer(primary, secondary))
